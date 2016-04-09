@@ -3,16 +3,18 @@
 <title>vueCal</title>
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <style>
-.day { width:10%; height:18%; float:left; border:1px solid #ccc; padding:1% }
+.day { width:13%; height:18%; float:left; border:1px solid #ccc; padding:1% }
 div.day:nth-child(odd) {background: #fafafa;;}
 .calendar { border:1px solid #fafafa; width:80%; margin-left:auto; margin-right:auto;}
 .month-btn { min-width:100px; float:left; }
 .current { float:left; min-width:250px; text-align:center;}
+.dow { float:left; width:13%; padding:1%; }
+.today { background:lightblue !important; }
 </style>
 </head>
 
 <body id="app">
-
+{{first}}
 <div class="calendar">
 <h3>
 <span><button class="btn btn-primary month-btn" @click="changeMonth('prev')"><< {{prevMonth}}</button></span>
@@ -20,8 +22,12 @@ div.day:nth-child(odd) {background: #fafafa;;}
 <span><button class="btn btn-primary month-btn" @click="changeMonth('next')">{{nextMonth}} >></button></span> 
 </h3>
 <br style="clear:both;"><br/>
-<div class="day" v-for="day in days">
-{{day+1}}<br/>
+<div class="dow" v-for="day in daysOfWeek">
+<strong>{{day}}</strong>
+</div>
+<br style="clear:both;"><br/>
+<div class="day" v-bind:class="{'today':day.today}" v-for="day in days">
+<span v-if="day.day != null">{{day.day+1}}</span>
 </div>
 </div>
 
