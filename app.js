@@ -5,7 +5,7 @@ new Vue({
     months:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     daysOfWeek:['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], day:0, first:0,
     events:[{"id": 1, "name":"Test Event 3", "dateTime":"2016-04-09 14:30:00"}, {"id": 2, "name":"Test Event 2", "dateTime":"2016-04-09 14:15:00"},{"id":3, "name":"Test Event", "dateTime":"2016-03-10 14:30:00"}],
-    dayEvents:''
+    dayEvents:'', currentEvent:{"name":"Test Event", "stage":"Interested", "firstName":"Dave", "email": "ns@soletrader.com"}
   },
   
         filters: {
@@ -167,6 +167,7 @@ new Vue({
      }
     }
   },
+  
     fetchEvents: function() {
       
       // GET request (fetch leads by month and year)
@@ -192,9 +193,13 @@ new Vue({
     
      this.dayEvents = search;
     
-    
     }
     },
     
+    eventInfo: function() {
+    
+    // Get the clicked on event info
+    
+    },
   },
 })

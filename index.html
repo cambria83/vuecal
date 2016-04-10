@@ -2,10 +2,12 @@
 <head>
 <title>vueCal</title>
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
 <style>
 .container { width:90%; margin-left:auto; margin-right:auto; margin-bottom:20px; }
 .day { width:13%; height:18%; float:left; border:1px solid #ccc; padding:1% }
-div.day:nth-child(odd) {background: #fafafa;;}
+div.day:nth-child(odd) {background: #fafafa;}
+.day:hover { background:lightgreen !important; }
 .calendar {  width:80%; margin-left:auto; margin-right:auto; float:left;}
 .month-btn { min-width:100px; float:left; }
 .current { float:left; min-width:250px; text-align:center;}
@@ -48,12 +50,39 @@ div.day:nth-child(odd) {background: #fafafa;;}
 <h3>Events for {{dayEvents}}</h3>
 <ul>
 <li class="event-item" v-for="event in events | filterBy dayEvents in 'dateTime' | orderBy 'dateTime'">
-<a href="#">{{event.name}} - {{event.dateTime | timeOnly}}</a>
+<a href="#" data-toggle="modal" data-target="#myModal">{{event.name}} - {{event.dateTime | timeOnly}}</a>
 </li>
 </ul>
 </div>
 
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{currentEvent.name}}</h4>
+      </div>
+      <div class="modal-body">
+        {{currentEvent.firstName}}<br/>
+        {{currentEvent.stage}}<br/>
+        {{currentEvent.email}}<br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 
 <script src="https://cdn.jsdelivr.net/vue/1.0.20/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/vue.resource/0.7.0/vue-resource.min.js"></script>
