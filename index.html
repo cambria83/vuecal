@@ -13,6 +13,8 @@ div.day:nth-child(odd) {background: #fafafa;;}
 .today { background:lightblue !important; }
 .event { float:left; margin-left:10px; padding:1px; list-style-type:square; font-size:25px; height:25px; color:darkred; }
 .events-box { float:left; width:20%; }
+.event-item { padding:10px; list-style-type:none; }
+.event-item:nth-child(even) { background:#fafafa; }
 </style>
 </head>
 
@@ -31,20 +33,22 @@ div.day:nth-child(odd) {background: #fafafa;;}
 <strong>{{day}}</strong>
 </div>
 <br style="clear:both;"><br/>
-<div class="day" v-bind:class="{'today':day.today}" v-for="day in days">
+<div class="day" v-bind:class="{'today':day.today}" v-for="day in days" @click="dayFilter(day.day)">
 <span v-if="day.day != null">{{day.day+1}}</span>
 <ul>
 <li class="event" v-for="event in day.events">
 </li>
 </ul>
+<div class="event-list">
+</div>
 </div>
 </div>
 
 <div class="events-box">
-<h3>Today's Events</h3>
+<h3>Events for {{dayEvents}}</h3>
 <ul>
-<li v-for="event in events">
-{{event.name}}
+<li class="event-item" v-for="event in events | filterBy dayEvents in 'dateTime' | orderBy 'dateTime'">
+<a href="#">{{event.name}} - {{event.dateTime | timeOnly}}</a>
 </li>
 </ul>
 </div>

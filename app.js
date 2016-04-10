@@ -4,12 +4,28 @@ new Vue({
     days:[], month:12, year:1983, date:10, prevMonth:'', nextMonth:'',
     months:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     daysOfWeek:['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], day:0, first:0,
-    events:[{"id": 1, "name":"Test Event", "dateTime":"2016-04-09 14:30:00"}, {"id": 2, "name":"Test Event 2", "dateTime":"2016-04-09 14:30:00"},{"id":3, "name":"Test Event 3", "dateTime":"2016-03-10 14:30:00"}]
+    events:[{"id": 1, "name":"Test Event 3", "dateTime":"2016-04-09 14:30:00"}, {"id": 2, "name":"Test Event 2", "dateTime":"2016-04-09 14:15:00"},{"id":3, "name":"Test Event", "dateTime":"2016-03-10 14:30:00"}],
+    dayEvents:''
+  },
+  
+        filters: {
+  
+    timeOnly: function(val) {
+      
+          var timestamp = new Date(Date.parse(val.replace('-','/','g')));
+          var hour = timestamp.getHours();
+          var minutes = timestamp.getMinutes();
+        
+          return hour + ':' + minutes;
+        
+      }
+  
   },
   
   ready: function() {
   
     this.currentMonth();
+    this.dayFilter(this.date - 1);
   
   },
   
@@ -60,8 +76,7 @@ new Vue({
        var eventMonth = timestamp.getMonth();
        var eventYear = timestamp.getFullYear();
        var arrayKey = timestamp.getDate() + nullDays - 1;
-       
-       
+              
        if(eventMonth + 1 === this.month && eventYear === this.year) {
       
       obj.push({"day": arrayKey, "name":event.name, "id":event.id});
@@ -164,6 +179,21 @@ new Vue({
           // error callback
       });
       
+    },
+    
+    dayFilter: function(day) {
+    if(day !== null) {
+      
+      var day = day + 1
+      var today = (day < 10) ? ("0" + day) : day;
+      var month = (this.month < 10) ? ("0" + this.month) : this.month;
+    
+     var search = this.year + '-' + month + '-' + today;
+    
+     this.dayEvents = search;
+    
+    
+    }
     },
     
   },
