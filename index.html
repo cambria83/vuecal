@@ -10,24 +10,27 @@ div.day:nth-child(odd) {background: #fafafa;;}
 .current { float:left; min-width:250px; text-align:center;}
 .dow { float:left; width:13%; padding:1%; }
 .today { background:lightblue !important; }
+.event { float:left; margin-left:10px; padding:1px; list-style-type:square; font-size:25px; height:25px; color:darkred; }
 </style>
 </head>
 
 <body id="app">
-{{first}}
 <div class="calendar">
-<h3>
 <span><button class="btn btn-primary month-btn" @click="changeMonth('prev')"><< {{prevMonth}}</button></span>
-<span><div class="current">{{months[month-1]}} {{year}}</div></span>
+<span><div class="current"><button class="btn btn-info" @click="currentMonth">Today</button></div></span>
 <span><button class="btn btn-primary month-btn" @click="changeMonth('next')">{{nextMonth}} >></button></span> 
-</h3>
 <br style="clear:both;"><br/>
+<h3>{{months[month-1]}} {{year}}</h3>
 <div class="dow" v-for="day in daysOfWeek">
 <strong>{{day}}</strong>
 </div>
 <br style="clear:both;"><br/>
 <div class="day" v-bind:class="{'today':day.today}" v-for="day in days">
 <span v-if="day.day != null">{{day.day+1}}</span>
+<ul>
+<li class="event" v-for="event in day.events">
+</li>
+</ul>
 </div>
 </div>
 
