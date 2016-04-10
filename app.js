@@ -4,7 +4,7 @@ new Vue({
     days:[], month:12, year:1983, date:10, prevMonth:'', nextMonth:'',
     months:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     daysOfWeek:['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], day:0, first:0,
-    events:[{"name":"Test Event", "dateTime":"2016-04-09 14:30:00"}, {"name":"Test Event 2", "dateTime":"2016-04-09 14:30:00"},{"name":"Test Event 3", "dateTime":"2016-03-10 14:30:00"}]
+    events:[{"id": 1, "name":"Test Event", "dateTime":"2016-04-09 14:30:00"}, {"id": 2, "name":"Test Event 2", "dateTime":"2016-04-09 14:30:00"},{"id":3, "name":"Test Event 3", "dateTime":"2016-03-10 14:30:00"}]
   },
   
   ready: function() {
@@ -64,13 +64,13 @@ new Vue({
        
        if(eventMonth + 1 === this.month && eventYear === this.year) {
       
-      obj.push({"day": arrayKey, "name":event.name});
+      obj.push({"day": arrayKey, "name":event.name, "id":event.id});
       // Add Events to Days Array
       var array = [];
       
       for(var item of obj) {
         if(item.day === arrayKey) {
-          array.push({"name":item.name});
+          array.push({"name":item.name, "id": item.id});
           this.days[arrayKey].events = array;
        }
       }      
@@ -139,19 +139,32 @@ new Vue({
        
        if(eventMonth + 1 === this.month && eventYear === this.year) {
       
-      obj.push({"day": arrayKey, "name":event.name});
+      obj.push({"day": arrayKey, "name":event.name, "id":event.id});
       // Add Events to Days Array
       var array = [];
       
       for(var item of obj) {
         if(item.day === arrayKey) {
-          array.push({"name":item.name});
+          array.push({"name":item.name, "id":item.id});
           this.days[arrayKey].events = array;
        }
       }      
      }
     }
-    
+  },
+    fetchEvents: function() {
+      
+      // GET request (fetch leads by month and year)
+      this.$http.get('/leads/fetch-leads', {"year":this.year, "month":this.month}).then(function (response) {
+
+        this.events = response.data
+
+      }, function (response) {
+
+          // error callback
+      });
+      
     },
- }
+    
+  },
 })

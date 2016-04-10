@@ -3,22 +3,28 @@
 <title>vueCal</title>
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <style>
+.container { width:90%; margin-left:auto; margin-right:auto; margin-bottom:20px; }
 .day { width:13%; height:18%; float:left; border:1px solid #ccc; padding:1% }
 div.day:nth-child(odd) {background: #fafafa;;}
-.calendar { border:1px solid #fafafa; width:80%; margin-left:auto; margin-right:auto;}
+.calendar {  width:80%; margin-left:auto; margin-right:auto; float:left;}
 .month-btn { min-width:100px; float:left; }
 .current { float:left; min-width:250px; text-align:center;}
 .dow { float:left; width:13%; padding:1%; }
 .today { background:lightblue !important; }
 .event { float:left; margin-left:10px; padding:1px; list-style-type:square; font-size:25px; height:25px; color:darkred; }
+.events-box { float:left; width:20%; }
 </style>
 </head>
 
 <body id="app">
+<div class="container">
+
 <div class="calendar">
+<div class="alert alert-default controls">
 <span><button class="btn btn-primary month-btn" @click="changeMonth('prev')"><< {{prevMonth}}</button></span>
 <span><div class="current"><button class="btn btn-info" @click="currentMonth">Today</button></div></span>
 <span><button class="btn btn-primary month-btn" @click="changeMonth('next')">{{nextMonth}} >></button></span> 
+</div>
 <br style="clear:both;"><br/>
 <h3>{{months[month-1]}} {{year}}</h3>
 <div class="dow" v-for="day in daysOfWeek">
@@ -34,7 +40,19 @@ div.day:nth-child(odd) {background: #fafafa;;}
 </div>
 </div>
 
+<div class="events-box">
+<h3>Today's Events</h3>
+<ul>
+<li v-for="event in events">
+{{event.name}}
+</li>
+</ul>
+</div>
+
+</div>
+
 <script src="https://cdn.jsdelivr.net/vue/1.0.20/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/vue.resource/0.7.0/vue-resource.min.js"></script>
 <script src="app.js"></script>
 
 </body>
