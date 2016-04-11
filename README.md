@@ -12,6 +12,14 @@ You may find this useful if you are looking for a vue based calendar that can ha
 
 I'll stick a quick demo up once this is complete
 
+## Dependencies
+
+- Vue.js
+- vue-resource
+- jQuery (for bootstrap js)
+- bootstrap CSS
+- bootstrap js
+
 ## Improvements
 
 There's a lot to improve on this project - if you'd like to contribute, just let me know!
